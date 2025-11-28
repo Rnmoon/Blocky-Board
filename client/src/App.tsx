@@ -3,7 +3,8 @@ import { io } from 'socket.io-client';
 import { Canvas } from './components/Canvas';
 import { Toolbar } from './components/Toolbar';
 
-const socket = io('http://localhost:3001');
+const SERVER_URL = import.meta.env.VITE_SERVER_URL || 'http://localhost:3001';
+const socket = io(SERVER_URL);
 
 function App() {
   const [color, setColor] = useState<string>('#000000');
@@ -12,13 +13,17 @@ function App() {
   const [selectedStamp, setSelectedStamp] = useState<string>('🧨');
   const [isGlowing, setIsGlowing] = useState<boolean>(false);
 
+  const [isConnected, setIsConnected] = useState<boolean>(socket.connected);
+
   useEffect(() => {
     function onConnect() {
       console.log('Connected to server');
+      setIsConnected(true);
     }
 
     function onDisconnect() {
       console.log('Disconnected from server');
+      setIsConnected(false);
     }
 
     socket.on('connect', onConnect);
@@ -69,8 +74,11 @@ function App() {
       />
       
       {/* Title/Overlay */}
-      <div className="absolute top-4 left-4 text-white font-press-start text-2xl drop-shadow-[4px_4px_0_rgba(0,0,0,1)] pointer-events-none z-20">
-        BLOCKY BOARD
+      <div className="absolute top-4 left-4 text-white font-press-start text-2xl drop-shadow-[4px_4px_0_rgba(0,0,0,1)] pointer-events-none z-20 flex flex-col gap-2">
+        <div>BLOCKY BOARD</div>
+        <div className={`text-xs ${isConnected ? 'text-green-400' : 'text-red-400'}`}>
+          {isConnected ? '● ONLINE' : '● OFFLINE'}
+        </div>
       </div>
     </div>
   );

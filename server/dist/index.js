@@ -28,6 +28,14 @@ io.on('connection', (socket) => {
         // Broadcast to other clients
         socket.broadcast.emit('draw-line', { prevPoint, currentPoint, color, width });
     });
+    socket.on('cursor-move', ({ x, y, userId }) => {
+        socket.broadcast.emit('cursor-move', { x, y, userId });
+    });
+    socket.on('draw-stamp', ({ x, y, stamp }) => {
+        // We could store stamps in history too if we wanted persistence
+        // For now, just broadcast
+        socket.broadcast.emit('draw-stamp', { x, y, stamp });
+    });
     socket.on('clear', () => {
         drawingHistory = [];
         io.emit('clear');
