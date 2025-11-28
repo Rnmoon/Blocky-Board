@@ -43,51 +43,6 @@ I implemented a **Dual-Layer Canvas System**. The bottom layer handles persisten
 **Problem:** Sending coordinates on every `mousemove` event flooded the server with thousands of requests per second.
 **Solution:** Implemented a **Throttle function** on the socket emission. Updates are batched and sent every 30ms, creating a smooth visual experience while reducing server load by ~80%.
 
-## 🔧 Installation & Setup
-
-1. **Clone the repo**
-   ```sh
-   git clone [https://github.com/yourusername/voxelboard.git](https://github.com/yourusername/voxelboard.git)
-   Install Server Dependencies
-
-Bash
-
-cd server
-npm install
-Install Client Dependencies
-
-Bash
-
-cd client
-npm install
-Environment Variables Create a .env file in the client folder:
-
-Code snippet
-
-VITE_API_URL=http://localhost:5173
-Run Locally
-
-Bash
-
-# Terminal 1 (Server)
-cd server
-npm run start
-
-# Terminal 2 (Client)
-cd client
-npm run dev
-🤝 Contributing
-Contributions are what make the open-source community such an amazing place to learn. Any contributions you make are greatly appreciated.
-
-Fork the Project
-
-Create your Feature Branch (git checkout -b feature/AmazingFeature)
-
-Commit your Changes (git commit -m 'Add some AmazingFeature')
-
-Push to the Branch (git push origin feature/AmazingFeature)
-
-Open a Pull Request
 
 👤 Author
 Aryan Moon
